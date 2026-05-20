@@ -27,8 +27,8 @@ export function Hero({ onShopClick }: { onShopClick: () => void }) {
         {/* LK Badge */}
         <div className="relative inline-block mb-8 md:mb-10">
           <div className="absolute -inset-6 rounded-full bg-[#D4AF37]/15 blur-2xl" aria-hidden />
-          <div className="relative w-20 h-20 md:w-24 md:h-24 mx-auto rounded-full border border-[#D4AF37]/50 grid place-items-center bg-black/40 backdrop-blur-sm animate-glow-pulse">
-            <span className="font-black text-3xl md:text-4xl tracking-[0.05em] text-gold-shine">LK</span>
+          <div className="relative w-20 h-20 md:w-24 md:h-24 mx-auto rounded-full border border-[#D4AF37]/50 overflow-hidden animate-glow-pulse">
+            <img src="/logo.jpg" alt="Legendary Kits" className="w-full h-full object-cover" />
           </div>
         </div>
 
