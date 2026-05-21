@@ -4,6 +4,7 @@ import { AnnouncementBar } from "@/components/lk/AnnouncementBar";
 import { Header } from "@/components/lk/Header";
 import { Hero } from "@/components/lk/Hero";
 import { TrustBadges } from "@/components/lk/TrustBadges";
+import { FeaturedCollections } from "@/components/lk/FeaturedCollections";
 import { Filters, type FilterValue } from "@/components/lk/Filters";
 import { ProductCard } from "@/components/lk/ProductCard";
 import { ProductModal } from "@/components/lk/ProductModal";
@@ -55,8 +56,11 @@ function HomePage() {
         <Hero onShopClick={scrollToShop} />
         <TrustBadges />
 
+        {/* Featured Collections */}
+        <FeaturedCollections />
+
         {/* Shop */}
-        <section id="shop" className="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+        <section id="shop" className="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24 border-t border-border">
           <div className="flex flex-col items-center text-center mb-10 md:mb-14">
             <p className="text-[11px] md:text-xs tracking-[0.4em] uppercase text-[#F3CF5D] mb-3">
               The Collection
@@ -99,7 +103,6 @@ function HomePage() {
       </main>
 
       <Footer />
-
       <WhatsAppFloat />
 
       <ProductModal
