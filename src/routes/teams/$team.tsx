@@ -8,6 +8,7 @@ import { ProductCard } from "@/components/lk/ProductCard";
 import { ProductModal } from "@/components/lk/ProductModal";
 import { CartDrawer, type CartItem } from "@/components/lk/CartDrawer";
 import { WhatsAppFloat } from "@/components/lk/WhatsAppFloat";
+import { TeamCrest } from "@/components/lk/TeamCrest";
 import { PRODUCTS, TEAMS, type Product } from "@/components/lk/products";
 
 export const Route = createFileRoute("/teams/$team")({
@@ -97,20 +98,11 @@ function TeamPage() {
             </Link>
 
             <div className="flex items-center gap-4 mb-4">
-              {teamInfo.image ? (
-                <img
-                  src={teamInfo.image}
-                  alt={teamInfo.name}
-                  className="w-16 h-16 md:w-20 md:h-20 rounded-xl object-cover border border-[#D4AF37]/40"
-                />
-              ) : (
-                <div
-                  className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center font-black text-white shadow-lg border border-[#D4AF37]/30 text-xl"
-                  style={{ background: `linear-gradient(135deg, ${teamInfo.primaryColor}, ${teamInfo.secondaryColor})` }}
-                >
-                  {teamInfo.abbrev}
-                </div>
-              )}
+              <TeamCrest
+                team={teamInfo}
+                size={80}
+                className="w-16 h-16 md:w-20 md:h-20 border border-border p-2 bg-[#0a0a0a]/50 rounded-xl"
+              />
               <div>
                 <p className="text-[10px] tracking-[0.4em] uppercase text-[#F3CF5D] mb-1">
                   {teamInfo.league} · {teamInfo.category === "football" ? "Football" : "NBA"}

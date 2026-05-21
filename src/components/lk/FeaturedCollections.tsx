@@ -1,5 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { TEAMS } from "./products";
+import { TeamCrest } from "./TeamCrest";
 
 const LEAGUES_ORDER = [
   "Premier League",
@@ -43,17 +44,12 @@ function LeagueSection({ league, teams, onTeamClick }: {
           <button
             key={team.slug}
             onClick={() => onTeamClick(team.slug)}
-            className="group flex flex-col items-center gap-2 p-2 rounded-xl border border-transparent hover:border-[#D4AF37]/40 hover:bg-white/[0.03] transition-all duration-300"
+            className="group flex flex-col items-center gap-2.5 p-2 rounded-xl border border-transparent hover:border-[#D4AF37]/35 hover:bg-white/[0.03] transition-all duration-300"
           >
-            <div
-              className="w-12 h-12 rounded-full flex items-center justify-center font-black text-white shadow-md group-hover:shadow-[0_0_16px_rgba(212,175,55,0.3)] transition-shadow duration-300 text-[13px]"
-              style={{
-                background: `linear-gradient(135deg, ${team.primaryColor} 0%, ${team.secondaryColor} 100%)`,
-              }}
-            >
-              {team.abbrev}
+            <div className="w-12 h-12 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_rgba(243,207,93,0.35)]">
+              <TeamCrest team={team} size={42} />
             </div>
-            <span className="text-[9px] text-center text-foreground/55 group-hover:text-[#F3CF5D] transition-colors leading-tight max-w-[64px]">
+            <span className="text-[10px] font-medium text-center text-foreground/60 group-hover:text-[#F3CF5D] transition-colors leading-tight max-w-[68px] truncate">
               {team.nameHe}
             </span>
           </button>

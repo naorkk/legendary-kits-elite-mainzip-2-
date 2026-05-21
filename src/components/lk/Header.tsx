@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Instagram, ShoppingBag, Menu, X, ChevronDown, Search } from "lucide-react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { INSTAGRAM_URL, TEAMS, PRODUCTS } from "./products";
+import { TeamCrest } from "./TeamCrest";
 
 interface HeaderProps {
   cartCount: number;
@@ -28,10 +29,27 @@ function NavDropdown({ label, leagues, onClose }: {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  const handleLabelClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setOpen(false);
+    onClose();
+
+    const category = label === "כדורגל" ? "football" : "nba";
+    navigate({
+      to: "/",
+      search: { sport: category },
+      hash: "shop",
+    });
+
+    setTimeout(() => {
+      document.getElementById("shop")?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
   return (
     <div ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
       <button
-        onClick={() => setOpen((v) => !v)}
+        onClick={handleLabelClick}
         className="flex items-center gap-1 text-[13px] tracking-wide text-foreground/75 hover:text-[#F3CF5D] transition-colors uppercase"
       >
         {label}
@@ -53,12 +71,7 @@ function NavDropdown({ label, leagues, onClose }: {
                       onClick={() => { navigate({ to: "/teams/$team", params: { team: team.slug } }); setOpen(false); onClose(); }}
                       className="flex items-center gap-2 w-full px-1 py-1.5 rounded-lg text-xs text-foreground/70 hover:text-[#F3CF5D] hover:bg-white/5 transition-colors text-right"
                     >
-                      <div
-                        className="w-5 h-5 rounded-full shrink-0 text-white flex items-center justify-center font-black"
-                        style={{ background: `linear-gradient(135deg,${team.primaryColor},${team.secondaryColor})`, fontSize: 7 }}
-                      >
-                        {team.abbrev.slice(0, 2)}
-                      </div>
+                      <TeamCrest team={team} size={18} className="shrink-0" />
                       {team.nameHe}
                     </button>
                   ))}
@@ -143,12 +156,7 @@ function SearchBar({ onClose }: { onClose: () => void }) {
                   onClick={() => { navigate({ to: "/teams/$team", params: { team: team.slug } }); setQuery(""); setOpen(false); onClose(); }}
                   className="flex items-center gap-3 w-full px-4 py-2 text-sm text-foreground/80 hover:text-[#F3CF5D] hover:bg-white/5 transition-colors text-right"
                 >
-                  <div
-                    className="w-6 h-6 rounded-full text-white flex items-center justify-center font-black shrink-0"
-                    style={{ background: `linear-gradient(135deg,${team.primaryColor},${team.secondaryColor})`, fontSize: 8 }}
-                  >
-                    {team.abbrev.slice(0, 2)}
-                  </div>
+                  <TeamCrest team={team} size={22} className="shrink-0" />
                   <span>{team.nameHe}</span>
                   <span className="text-[10px] text-foreground/40 mr-auto">{team.league}</span>
                 </button>
@@ -258,6 +266,34 @@ export function Header({ cartCount, onCartOpen }: HeaderProps) {
       {mobileOpen && (
         <div className="lg:hidden absolute inset-x-0 top-16 bg-[#0a0a0a]/98 backdrop-blur-xl border-b border-border animate-fade-in z-50 max-h-[80vh] overflow-y-auto">
           <div className="px-5 py-5 space-y-5">
+            {/* Category quick filters */}
+            <div className="grid grid-cols-2 gap-3 pb-3 border-b border-border">
+              <button
+                onClick={() => {
+                  navigate({ to: "/", search: { sport: "football" }, hash: "shop" });
+                  setMobileOpen(false);
+                  setTimeout(() => {
+                    document.getElementById("shop")?.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                }}
+                className="flex items-center justify-center gap-2 py-2.5 rounded-xl border border-[#D4AF37]/30 bg-white/[0.02] text-xs font-bold text-foreground hover:text-[#F3CF5D] transition-colors"
+              >
+                ⚽ כדורגל
+              </button>
+              <button
+                onClick={() => {
+                  navigate({ to: "/", search: { sport: "nba" }, hash: "shop" });
+                  setMobileOpen(false);
+                  setTimeout(() => {
+                    document.getElementById("shop")?.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                }}
+                className="flex items-center justify-center gap-2 py-2.5 rounded-xl border border-[#D4AF37]/30 bg-white/[0.02] text-xs font-bold text-foreground hover:text-[#F3CF5D] transition-colors"
+              >
+                🏀 גופיות NBA
+              </button>
+            </div>
+
             {[...FOOTBALL_LEAGUES, ...NBA_LEAGUES].map((league) => {
               const teams = TEAMS.filter((t) => t.league === league);
               if (!teams.length) return null;
@@ -271,7 +307,7 @@ export function Header({ cartCount, onCartOpen }: HeaderProps) {
                         onClick={() => { navigate({ to: "/teams/$team", params: { team: team.slug } }); setMobileOpen(false); }}
                         className="flex items-center gap-2 py-1.5 text-xs text-foreground/70 hover:text-[#F3CF5D] transition-colors text-right"
                       >
-                        <div className="w-4 h-4 rounded-full shrink-0" style={{ background: `linear-gradient(135deg,${team.primaryColor},${team.secondaryColor})` }} />
+                        <TeamCrest team={team} size={16} className="shrink-0" />
                         {team.nameHe}
                       </button>
                     ))}

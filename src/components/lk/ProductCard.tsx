@@ -1,4 +1,5 @@
 import { TEAMS, type Product } from "./products";
+import { JerseyMockup } from "./JerseyMockup";
 
 export function ProductCard({
   product,
@@ -22,29 +23,12 @@ export function ProductCard({
             className="zoom-img w-full h-full object-cover"
           />
         ) : (
-          <div
-            className="w-full h-full flex flex-col items-center justify-center zoom-img"
-            style={{
-              background: team
-                ? `linear-gradient(135deg, ${team.primaryColor}22 0%, ${team.secondaryColor}44 100%)`
-                : "linear-gradient(135deg, #1a1a1a, #0a0a0a)",
-            }}
-          >
-            <div
-              className="w-24 h-24 rounded-full flex items-center justify-center font-black text-white shadow-xl mb-3"
-              style={{
-                background: team
-                  ? `linear-gradient(135deg, ${team.primaryColor}, ${team.secondaryColor})`
-                  : "linear-gradient(135deg,#D4AF37,#F3CF5D)",
-                fontSize: 22,
-              }}
-            >
-              {team?.abbrev ?? "LK"}
-            </div>
-            <span className="text-xs text-foreground/50 tracking-widest uppercase">
-              {team?.nameHe ?? product.team}
-            </span>
-          </div>
+          <JerseyMockup
+            team={team}
+            product={product}
+            view="front"
+            className="w-full h-full object-cover zoom-img"
+          />
         )}
 
         {/* Badge */}
@@ -60,6 +44,13 @@ export function ProductCard({
         <div className="absolute top-3 left-3 text-[10px] tracking-[0.2em] uppercase text-foreground/70 bg-black/60 backdrop-blur px-2.5 py-1 rounded-sm border border-border">
           {product.categoryLabel}
         </div>
+
+        {/* Custom Print Badge */}
+        {!product.image && (
+          <div className="absolute bottom-3 right-3 text-[9px] tracking-wider font-black px-2.5 py-1 rounded-sm bg-[#D4AF37] text-black shadow-[0_0_12px_rgba(212,175,55,0.4)] z-10">
+            ✨ הדפסה אישית חינם
+          </div>
+        )}
 
         {/* Quick buy */}
         <div className="absolute inset-x-0 bottom-0 p-3 translate-y-0 md:translate-y-full md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">

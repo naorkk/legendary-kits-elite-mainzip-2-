@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
-import { buildWhatsAppLink, type Product, type PlayerVariant } from "./products";
+import { buildWhatsAppLink, type Product, type PlayerVariant, TEAMS } from "./products";
+import { JerseyMockup } from "./JerseyMockup";
 
 const SIZES = ["S", "M", "L", "XL", "XXL"];
 const FEATURES = [
@@ -19,6 +20,7 @@ interface Props {
 export function ProductModal({ product, onClose, onAddToCart }: Props) {
   const [size, setSize] = useState("M");
   const [player, setPlayer] = useState<PlayerVariant | undefined>(undefined);
+  const team = product ? TEAMS.find((t) => t.slug === product.teamSlug) : undefined;
 
   useEffect(() => {
     setSize("M");
@@ -60,20 +62,31 @@ export function ProductModal({ product, onClose, onAddToCart }: Props) {
 
         <div className="grid md:grid-cols-2">
           {/* Image */}
-          <div className="relative aspect-square md:aspect-auto bg-black">
-            <img
-              src={product.image}
-              alt={product.title}
-              className="w-full h-full object-cover"
-            />
+          <div className="relative aspect-square md:aspect-auto bg-black min-h-[300px] md:min-h-[450px]">
+            {product.image ? (
+              <img
+                src={product.image}
+                alt={product.title}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <JerseyMockup
+                team={team}
+                product={product}
+                view="both"
+                playerName={player?.name}
+                playerNumber={player?.number}
+                className="w-full h-full"
+              />
+            )}
             <div
-              className="absolute top-4 right-4 text-[10px] tracking-[0.25em] uppercase font-black px-3 py-1.5 rounded-sm text-black"
+              className="absolute top-4 right-4 text-[10px] tracking-[0.25em] uppercase font-black px-3 py-1.5 rounded-sm text-black z-10"
               style={{ background: "linear-gradient(135deg,#D4AF37,#F3CF5D)" }}
             >
               {product.badge ?? "מבצע השקה"}
             </div>
             {product.isRetro && product.era && (
-              <div className="absolute bottom-4 right-4 text-[10px] tracking-[0.2em] uppercase text-foreground/80 bg-black/70 backdrop-blur px-3 py-1.5 rounded-sm border border-border">
+              <div className="absolute bottom-4 right-4 text-[10px] tracking-[0.2em] uppercase text-foreground/80 bg-black/70 backdrop-blur px-3 py-1.5 rounded-sm border border-border z-10">
                 {product.era}
               </div>
             )}

@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { createFileRoute, useNavigate, useLocation } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
 import { AnnouncementBar } from "@/components/lk/AnnouncementBar";
 import { Header } from "@/components/lk/Header";
 import { Hero } from "@/components/lk/Hero";
@@ -18,7 +18,19 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [filters, setFilters] = useState<ShopFilterState>(DEFAULT_FILTERS);
+
+  // Sync route search params to shop filters state
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const sportParam = searchParams.get("sport");
+    const nextSport = (sportParam === "football" || sportParam === "nba") ? sportParam : "all";
+    if (nextSport !== filters.sport) {
+      setFilters((prev) => ({ ...prev, sport: nextSport as "all" | "football" | "nba" }));
+    }
+  }, [location.search]);
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -85,7 +97,18 @@ function HomePage() {
 
             <div className="flex gap-8 items-start">
               {/* Sidebar filters (handles both mobile button + desktop sidebar) */}
-              <ShopFilters filters={filters} onChange={setFilters} total={filtered.length} />
+              <ShopFilters
+                filters={filters}
+                onChange={(newFilters) => {
+                  setFilters(newFilters);
+                  navigate({
+                    to: "/",
+                    search: { sport: newFilters.sport !== "all" ? newFilters.sport : undefined },
+                    replace: true,
+                  });
+                }}
+                total={filtered.length}
+              />
 
               {/* Products grid */}
               <div className="flex-1 min-w-0">
