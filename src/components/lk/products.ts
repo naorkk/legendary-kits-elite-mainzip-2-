@@ -30,12 +30,13 @@ export interface Product {
   categoryLabel: string;
   price: number;
   originalPrice: number;
-  image: string;
+  image?: string;
   players?: PlayerVariant[];
   era?: string;
   description?: string;
   isRetro?: boolean;
   badge?: string;
+  eraPeriod?: "90s" | "00s" | "10s" | "modern";
 }
 
 export interface TeamInfo {
@@ -44,204 +45,188 @@ export interface TeamInfo {
   nameHe: string;
   category: Category;
   league: string;
+  leagueShort: string;
+  primaryColor: string;
+  secondaryColor: string;
+  abbrev: string;
   description: string;
-  image: string;
+  image?: string;
+  currentPlayers?: PlayerVariant[];
 }
 
+// ── TEAMS ──────────────────────────────────────────────────────────────────
+
 export const TEAMS: TeamInfo[] = [
-  { slug: "manchester-city", name: "Manchester City FC", nameHe: "מנצ׳סטר סיטי", category: "football", league: "Premier League", description: "מועדון הפרמייר ליג המוביל בעידן הנוכחי. חולצות 24/25 ורטרו מהעונות האגדיות.", image: city },
-  { slug: "arsenal", name: "Arsenal FC", nameHe: "ארסנל", category: "football", league: "Premier League", description: "The Gunners — ארסנל FC. חולצות עונה נוכחית ורטרו מעידן The Invincibles.", image: arsenal },
-  { slug: "liverpool", name: "Liverpool FC", nameHe: "ליברפול", category: "football", league: "Premier League", description: "You'll Never Walk Alone. חולצות עונה נוכחית ורטרו מעידן גרארד ואיסטנבול.", image: liverpool },
-  { slug: "manchester-united", name: "Manchester United FC", nameHe: "מנצ׳סטר יונייטד", category: "football", league: "Premier League", description: "The Red Devils. חולצות עונה נוכחית ורטרו מעידן טרבל 1999.", image: united },
-  { slug: "real-madrid", name: "Real Madrid CF", nameHe: "ריאל מדריד", category: "football", league: "La Liga", description: "Los Blancos — 14 גביעי Champions League. חולצות עונה נוכחית ורטרו מעידן זידאן.", image: madrid },
-  { slug: "barcelona", name: "FC Barcelona", nameHe: "ברצלונה", category: "football", league: "La Liga", description: "Més que un club. חולצות עונה נוכחית ורטרו מעידן מסי, שאבי ואיניסטה.", image: barca },
-  { slug: "bayern-munich", name: "FC Bayern Munich", nameHe: "באיירן מינכן", category: "football", league: "Bundesliga", description: "Die Roten — שלישיית הכותרות. חולצות עונה נוכחית ורטרו מעידן UCL 2013.", image: bayern },
-  { slug: "psg", name: "Paris Saint-Germain", nameHe: "פריז סן ז׳רמן", category: "football", league: "Ligue 1", description: "PSG — המועדון הצרפתי. חולצות עונה נוכחית ורטרו מעידן איברהימוביץ׳.", image: psg },
-  { slug: "lakers", name: "Los Angeles Lakers", nameHe: "לוס אנג׳לס לייקרס", category: "nba", league: "Western Conference", description: "Showtime Lakers — שושלת NBA. גופיות עונה נוכחית ורטרו מעידן קובי וסאק.", image: lakers },
-  { slug: "bulls", name: "Chicago Bulls", nameHe: "שיקגו בולס", category: "nba", league: "Eastern Conference", description: "The Last Dance — שיקגו בולס. גופיות עונה נוכחית ורטרו מעידן מייקל ג׳ורדן.", image: bulls },
-  { slug: "celtics", name: "Boston Celtics", nameHe: "בוסטון סלטיקס", category: "nba", league: "Eastern Conference", description: "18 אליפויות — הצבא הירוק. גופיות עונה נוכחית ורטרו מעידן לארי בירד.", image: celtics },
-  { slug: "warriors", name: "Golden State Warriors", nameHe: "גולדן סטייט ווריורס", category: "nba", league: "Western Conference", description: "Strength in Numbers. גופיות עונה נוכחית ורטרו מעידן הדיינסטי 2017.", image: warriors },
+  // Premier League
+  { slug: "manchester-city", name: "Manchester City FC", nameHe: "מנצ׳סטר סיטי", category: "football", league: "Premier League", leagueShort: "EPL", primaryColor: "#6CABDD", secondaryColor: "#1C2C5B", abbrev: "MCI", description: "The Citizens — אלופי האנגלייה. חולצות עונה נוכחית ורטרו.", image: city, currentPlayers: [{ name: "הולאנד", number: "9" }, { name: "דה ברויינה", number: "17" }, { name: "פיל פודן", number: "47" }] },
+  { slug: "arsenal", name: "Arsenal FC", nameHe: "ארסנל", category: "football", league: "Premier League", leagueShort: "EPL", primaryColor: "#EF0107", secondaryColor: "#063672", abbrev: "ARS", description: "The Gunners — ארסנל FC. The Invincibles.", image: arsenal, currentPlayers: [{ name: "סאקה", number: "7" }, { name: "מרטינלי", number: "11" }, { name: "אודגאר", number: "8" }] },
+  { slug: "liverpool", name: "Liverpool FC", nameHe: "ליברפול", category: "football", league: "Premier League", leagueShort: "EPL", primaryColor: "#C8102E", secondaryColor: "#00B2A9", abbrev: "LIV", description: "You'll Never Walk Alone. רגע איסטנבול 2005.", image: liverpool, currentPlayers: [{ name: "סלאח", number: "11" }, { name: "נונז", number: "9" }, { name: "טרנט", number: "66" }] },
+  { slug: "manchester-united", name: "Manchester United FC", nameHe: "מנצ׳סטר יונייטד", category: "football", league: "Premier League", leagueShort: "EPL", primaryColor: "#DA291C", secondaryColor: "#FBE122", abbrev: "MUN", description: "The Red Devils. טרבל 1999.", image: united, currentPlayers: [{ name: "רשפורד", number: "10" }, { name: "הוילונד", number: "11" }, { name: "מאונט", number: "7" }] },
+  { slug: "chelsea", name: "Chelsea FC", nameHe: "צ׳לסי", category: "football", league: "Premier League", leagueShort: "EPL", primaryColor: "#034694", secondaryColor: "#EE242C", abbrev: "CHE", description: "The Blues — קולקציה עשירה מהעשור הכחול.", currentPlayers: [{ name: "פאלמר", number: "20" }, { name: "פודריצ׳קה", number: "10" }, { name: "ג׳קסון", number: "15" }] },
+  { slug: "tottenham", name: "Tottenham Hotspur FC", nameHe: "טוטנהאם", category: "football", league: "Premier League", leagueShort: "EPL", primaryColor: "#132257", secondaryColor: "#FFFFFF", abbrev: "TOT", description: "Spurs — White Hart Lane עד Tottenham Hotspur Stadium.", currentPlayers: [{ name: "סון", number: "7" }, { name: "מדיסון", number: "10" }, { name: "ריצ׳ארליסון", number: "9" }] },
+  { slug: "newcastle", name: "Newcastle United FC", nameHe: "ניוקאסל יונייטד", category: "football", league: "Premier League", leagueShort: "EPL", primaryColor: "#241F20", secondaryColor: "#FFFFFF", abbrev: "NEW", description: "The Magpies — שחור-לבן מניוקאסל.", currentPlayers: [{ name: "איסאק", number: "14" }, { name: "ג׳וקי ווילסון", number: "7" }, { name: "בריונו גימאראאש", number: "39" }] },
+  { slug: "aston-villa", name: "Aston Villa FC", nameHe: "אסטון וילה", category: "football", league: "Premier League", leagueShort: "EPL", primaryColor: "#670E36", secondaryColor: "#95BFE5", abbrev: "AVL", description: "Villa — בגוון הקלאסי חזרת ללגת האלופות.", currentPlayers: [{ name: "ווטקינס", number: "11" }, { name: "ברנסברוד", number: "20" }, { name: "מקגין", number: "7" }] },
+  // La Liga
+  { slug: "real-madrid", name: "Real Madrid CF", nameHe: "ריאל מדריד", category: "football", league: "La Liga", leagueShort: "LaLiga", primaryColor: "#FEBE10", secondaryColor: "#00529F", abbrev: "RMA", description: "Los Blancos — 14 גביעי Champions League.", image: madrid, currentPlayers: [{ name: "ויניציוס", number: "7" }, { name: "מבאפה", number: "9" }, { name: "בלינגהאם", number: "5" }] },
+  { slug: "barcelona", name: "FC Barcelona", nameHe: "ברצלונה", category: "football", league: "La Liga", leagueShort: "LaLiga", primaryColor: "#A50044", secondaryColor: "#004D98", abbrev: "FCB", description: "Més que un club. עידן מסי, שאבי, איניסטה.", image: barca, currentPlayers: [{ name: "יאמאל", number: "19" }, { name: "לוונה", number: "9" }, { name: "פדרי", number: "8" }] },
+  { slug: "atletico-madrid", name: "Atlético de Madrid", nameHe: "אטלטיקו מדריד", category: "football", league: "La Liga", leagueShort: "LaLiga", primaryColor: "#CB3524", secondaryColor: "#272E61", abbrev: "ATM", description: "Los Rojiblancos — אלופי ספרד 2014, 2021.", currentPlayers: [{ name: "גריזמן", number: "7" }, { name: "מורטה", number: "9" }, { name: "דה-פאול", number: "5" }] },
+  { slug: "sevilla", name: "Sevilla FC", nameHe: "סביליה", category: "football", league: "La Liga", leagueShort: "LaLiga", primaryColor: "#D61F2A", secondaryColor: "#FFFFFF", abbrev: "SEV", description: "6 גביעי UEFA — הקבוצה האייקונית של אנדלוסיה.", currentPlayers: [{ name: "לוקה מיליבויביץ׳", number: "19" }, { name: "אן-נסירי", number: "11" }] },
+  { slug: "valencia", name: "Valencia CF", nameHe: "ולנסיה", category: "football", league: "La Liga", leagueShort: "LaLiga", primaryColor: "#FF8000", secondaryColor: "#000000", abbrev: "VLC", description: "Los Murciélagos — הכוח הכתום מולנסיה.", currentPlayers: [{ name: "דיאס", number: "7" }, { name: "גאייה", number: "14" }] },
+  // Serie A
+  { slug: "juventus", name: "Juventus FC", nameHe: "יובנטוס", category: "football", league: "Serie A", leagueShort: "Serie A", primaryColor: "#000000", secondaryColor: "#FFFFFF", abbrev: "JUV", description: "La Vecchia Signora — 9 אליפויות רצופות. The Bianconeri.", currentPlayers: [{ name: "ולחוביץ׳", number: "9" }, { name: "טשאוויה", number: "10" }, { name: "קמביאסו", number: "7" }] },
+  { slug: "ac-milan", name: "AC Milan", nameHe: "אי.סי. מילאן", category: "football", league: "Serie A", leagueShort: "Serie A", primaryColor: "#FB090B", secondaryColor: "#000000", abbrev: "ACM", description: "I Rossoneri — 7 גביעי Champions League.", currentPlayers: [{ name: "לאו", number: "10" }, { name: "ג׳ירו", number: "9" }, { name: "טיאו", number: "23" }] },
+  { slug: "inter-milan", name: "FC Internazionale Milano", nameHe: "אינטר מילאן", category: "football", league: "Serie A", leagueShort: "Serie A", primaryColor: "#0068A8", secondaryColor: "#000000", abbrev: "INT", description: "I Nerazzurri — טרבל 2010.", image: inter, currentPlayers: [{ name: "לאוטרו מרטינס", number: "10" }, { name: "ת׳ורם", number: "9" }, { name: "ברוסארד׳ו", number: "77" }] },
+  { slug: "as-roma", name: "AS Roma", nameHe: "אס רומא", category: "football", league: "Serie A", leagueShort: "Serie A", primaryColor: "#8E1F2F", secondaryColor: "#F0BC42", abbrev: "ROM", description: "I Giallorossi — הלב של רומא.", currentPlayers: [{ name: "דיבאלה", number: "21" }, { name: "לוקאקו", number: "11" }, { name: "מנצ׳יני", number: "8" }] },
+  { slug: "napoli", name: "SSC Napoli", nameHe: "נאפולי", category: "football", league: "Serie A", leagueShort: "Serie A", primaryColor: "#087AC3", secondaryColor: "#FFFFFF", abbrev: "NAP", description: "Gli Azzurri — עידן מרדונה ועידן אוסימהן.", currentPlayers: [{ name: "קוואראצ׳לייה", number: "77" }, { name: "לוקאקו", number: "11" }, { name: "לוזאנו", number: "11" }] },
+  // Bundesliga
+  { slug: "bayern-munich", name: "FC Bayern Munich", nameHe: "באיירן מינכן", category: "football", league: "Bundesliga", leagueShort: "Bundesliga", primaryColor: "#DC052D", secondaryColor: "#FFFFFF", abbrev: "FCB", description: "Die Roten — UCL 2013.", image: bayern, currentPlayers: [{ name: "קיין", number: "9" }, { name: "מוסיאלה", number: "42" }, { name: "קינגסלי קומן", number: "11" }] },
+  { slug: "dortmund", name: "Borussia Dortmund", nameHe: "בורוסיה דורטמונד", category: "football", league: "Bundesliga", leagueShort: "Bundesliga", primaryColor: "#FDE100", secondaryColor: "#000000", abbrev: "BVB", description: "Die Schwarzgelben — Signal Iduna Park. אלופי 2011, 2012.", currentPlayers: [{ name: "גיטה", number: "10" }, { name: "פולסן", number: "9" }, { name: "ראוס", number: "11" }] },
+  { slug: "leverkusen", name: "Bayer 04 Leverkusen", nameHe: "בייר לברקוזן", category: "football", league: "Bundesliga", leagueShort: "Bundesliga", primaryColor: "#E32221", secondaryColor: "#000000", abbrev: "B04", description: "Die Werkself — אלופי גרמניה 2023/24 ללא הפסד.", currentPlayers: [{ name: "גרנית שקה", number: "10" }, { name: "ווירץ", number: "10" }, { name: "הופמן", number: "11" }] },
+  // Ligue 1
+  { slug: "psg", name: "Paris Saint-Germain", nameHe: "פריז סן ז׳רמן", category: "football", league: "Ligue 1", leagueShort: "Ligue 1", primaryColor: "#003370", secondaryColor: "#DA291C", abbrev: "PSG", description: "PSG — הכוח הצרפתי.", image: psg, currentPlayers: [{ name: "דמבלה", number: "10" }, { name: "אשראף", number: "2" }, { name: "לי קאנג-אין", number: "19" }] },
+  { slug: "marseille", name: "Olympique de Marseille", nameHe: "מרסיי", category: "football", league: "Ligue 1", leagueShort: "Ligue 1", primaryColor: "#00A5DE", secondaryColor: "#FFFFFF", abbrev: "OM", description: "L'OM — UCL 1993. הקבוצה הצרפתית עם הכי הרבה אוהדים.", currentPlayers: [{ name: "ונדרסון", number: "8" }, { name: "אוליביה", number: "9" }] },
+  // Rest of World
+  { slug: "ajax", name: "AFC Ajax", nameHe: "אייאקס", category: "football", league: "Rest of World", leagueShort: "Eredivisie", primaryColor: "#D2122E", secondaryColor: "#FFFFFF", abbrev: "AJX", description: "Ajax — UCL 1995. Factory of Talent.", currentPlayers: [{ name: "ברגוויין", number: "11" }, { name: "גרייסון", number: "9" }] },
+  { slug: "benfica", name: "SL Benfica", nameHe: "בנפיקה", category: "football", league: "Rest of World", leagueShort: "Primeira Liga", primaryColor: "#E52214", secondaryColor: "#FFFFFF", abbrev: "SLB", description: "As Águias — 2 גביעי UCL.", currentPlayers: [{ name: "דיאס", number: "6" }, { name: "רמוס", number: "9" }] },
+  { slug: "porto", name: "FC Porto", nameHe: "פורטו", category: "football", league: "Rest of World", leagueShort: "Primeira Liga", primaryColor: "#003F87", secondaryColor: "#FFFFFF", abbrev: "POR", description: "Os Dragões — UCL 2004 עם מורינייו.", currentPlayers: [{ name: "גלנו", number: "7" }, { name: "ה׳ישם", number: "9" }] },
+  { slug: "celtic", name: "Celtic FC", nameHe: "סלטיק", category: "football", league: "Rest of World", leagueShort: "Scottish Premiership", primaryColor: "#005F27", secondaryColor: "#FFFFFF", abbrev: "CEL", description: "The Hoops — UCL 1967 Lisbon Lions.", currentPlayers: [{ name: "הטה", number: "9" }, { name: "יוקוסו", number: "7" }] },
+  { slug: "boca-juniors", name: "Boca Juniors", nameHe: "בוקה ג׳וניורס", category: "football", league: "Rest of World", leagueShort: "Primera División", primaryColor: "#003DA5", secondaryColor: "#FFC20E", abbrev: "BOC", description: "Los Xeneizes — מרדונה, ריקלמה, La Bombonera.", currentPlayers: [{ name: "מייה", number: "10" }, { name: "בנדניי", number: "9" }] },
+  { slug: "river-plate", name: "Club Atlético River Plate", nameHe: "ריבר פלייט", category: "football", league: "Rest of World", leagueShort: "Primera División", primaryColor: "#D41B2C", secondaryColor: "#FFFFFF", abbrev: "RIV", description: "Los Millonarios — Copa Libertadores 2015, 2018, 2019.", currentPlayers: [{ name: "ביולה", number: "10" }, { name: "אלבארס", number: "9" }] },
+  { slug: "santos", name: "Santos FC", nameHe: "סאנטוס", category: "football", league: "Rest of World", leagueShort: "Série A (Brasil)", primaryColor: "#000000", secondaryColor: "#FFFFFF", abbrev: "SAN", description: "Santos FC — בית של פלה ונייאר.", currentPlayers: [{ name: "ריקאס", number: "10" }, { name: "ד׳אנדרה", number: "9" }] },
+  // National Teams
+  { slug: "brazil", name: "Brazil National Team", nameHe: "ברזיל", category: "football", league: "National Teams", leagueShort: "Seleção", primaryColor: "#009B3A", secondaryColor: "#FEDF00", abbrev: "BRA", description: "5 גביעי עולם — הסלסאו. ויניציוס, רודריגו, וינה.", currentPlayers: [{ name: "ויניציוס ג׳וניור", number: "7" }, { name: "רודריגו", number: "11" }, { name: "ריצ׳רליסון", number: "9" }] },
+  { slug: "argentina", name: "Argentina National Team", nameHe: "ארגנטינה", category: "football", league: "National Teams", leagueShort: "Selección", primaryColor: "#75AADB", secondaryColor: "#FFFFFF", abbrev: "ARG", description: "3 גביעי עולם — מסי, מרדונה. אלופי העולם 2022.", currentPlayers: [{ name: "מסי", number: "10" }, { name: "לאוטרו מרטינס", number: "22" }, { name: "דה-פאול", number: "7" }] },
+  { slug: "france", name: "France National Team", nameHe: "צרפת", category: "football", league: "National Teams", leagueShort: "Les Bleus", primaryColor: "#002395", secondaryColor: "#FFFFFF", abbrev: "FRA", description: "2 גביעי עולם — זידאן, מבאפה. אלופי 1998.", currentPlayers: [{ name: "מבאפה", number: "10" }, { name: "גריזמן", number: "7" }, { name: "דמבלה", number: "11" }] },
+  { slug: "italy", name: "Italy National Team", nameHe: "איטליה", category: "football", league: "National Teams", leagueShort: "Azzurri", primaryColor: "#003DA5", secondaryColor: "#FFFFFF", abbrev: "ITA", description: "4 גביעי עולם, אלופי אירופה 2021. Gli Azzurri.", currentPlayers: [{ name: "קיסה", number: "10" }, { name: "ראספאדורי", number: "9" }, { name: "ג׳יגי דונרומה", number: "1" }] },
+  { slug: "germany", name: "Germany National Team", nameHe: "גרמניה", category: "football", league: "National Teams", leagueShort: "Mannschaft", primaryColor: "#000000", secondaryColor: "#DD0000", abbrev: "GER", description: "4 גביעי עולם — Die Mannschaft.", currentPlayers: [{ name: "מוסיאלה", number: "10" }, { name: "קיין", number: "9" }, { name: "גונדוגן", number: "8" }] },
+  { slug: "england", name: "England National Team", nameHe: "אנגליה", category: "football", league: "National Teams", leagueShort: "Three Lions", primaryColor: "#FFFFFF", secondaryColor: "#CF081F", abbrev: "ENG", description: "Three Lions — אלופי 1966. בלינגהאם, סאקה, פודן.", currentPlayers: [{ name: "בלינגהאם", number: "10" }, { name: "סאקה", number: "7" }, { name: "פודן", number: "10" }] },
+  { slug: "spain", name: "Spain National Team", nameHe: "ספרד", category: "football", league: "National Teams", leagueShort: "La Roja", primaryColor: "#AA151B", secondaryColor: "#F1BF00", abbrev: "ESP", description: "La Roja — 2 גביעי עולם, 3 תארי אירופה.", currentPlayers: [{ name: "יאמאל", number: "19" }, { name: "מוראטה", number: "9" }, { name: "פדרי", number: "26" }] },
+  { slug: "portugal", name: "Portugal National Team", nameHe: "פורטוגל", category: "football", league: "National Teams", leagueShort: "Seleção", primaryColor: "#006600", secondaryColor: "#D51C1D", abbrev: "POR", description: "אלופי אירופה 2016 — CR7, פקה, ברנרדו סילבה.", currentPlayers: [{ name: "רונאלדו", number: "7" }, { name: "ברנרדו סילבה", number: "10" }, { name: "לאו פלקס", number: "11" }] },
+  // NBA - Eastern Conference
+  { slug: "bulls", name: "Chicago Bulls", nameHe: "שיקגו בולס", category: "nba", league: "Eastern Conference", leagueShort: "NBA East", primaryColor: "#CE1141", secondaryColor: "#000000", abbrev: "CHI", description: "The Last Dance — 6 אליפויות NBA.", image: bulls, currentPlayers: [{ name: "LaVine", number: "8" }, { name: "DeRozan", number: "11" }, { name: "Vucevic", number: "9" }] },
+  { slug: "celtics", name: "Boston Celtics", nameHe: "בוסטון סלטיקס", category: "nba", league: "Eastern Conference", leagueShort: "NBA East", primaryColor: "#007A33", secondaryColor: "#FFFFFF", abbrev: "BOS", description: "18 אליפויות — הצבא הירוק. Bird, Pierce, Tatum.", image: celtics, currentPlayers: [{ name: "Tatum", number: "0" }, { name: "Brown", number: "7" }, { name: "Horford", number: "42" }] },
+  { slug: "heat", name: "Miami Heat", nameHe: "מיאמי היט", category: "nba", league: "Eastern Conference", leagueShort: "NBA East", primaryColor: "#98002E", secondaryColor: "#F9A01B", abbrev: "MIA", description: "Miami Heat Culture — Wade, LeBron, Bosh Big 3.", currentPlayers: [{ name: "Butler", number: "22" }, { name: "Herro", number: "14" }, { name: "Bam Adebayo", number: "13" }] },
+  { slug: "knicks", name: "New York Knicks", nameHe: "ניו יורק ניקס", category: "nba", league: "Eastern Conference", leagueShort: "NBA East", primaryColor: "#006BB6", secondaryColor: "#F58426", abbrev: "NYK", description: "Orange and Blue — MSG, הקבוצה של ניו יורק.", currentPlayers: [{ name: "Brunson", number: "11" }, { name: "Randle", number: "30" }, { name: "OG Anunoby", number: "8" }] },
+  { slug: "bucks", name: "Milwaukee Bucks", nameHe: "מילווקי באקס", category: "nba", league: "Eastern Conference", leagueShort: "NBA East", primaryColor: "#00471B", secondaryColor: "#EEE1C6", abbrev: "MIL", description: "The Deer District — Giannis Antetokounmpo.", currentPlayers: [{ name: "Giannis", number: "34" }, { name: "Lillard", number: "0" }, { name: "Portis", number: "8" }] },
+  { slug: "76ers", name: "Philadelphia 76ers", nameHe: "פילדלפיה 76ארס", category: "nba", league: "Eastern Conference", leagueShort: "NBA East", primaryColor: "#006BB6", secondaryColor: "#ED174C", abbrev: "PHI", description: "The Process — Allen Iverson, Embiid.", currentPlayers: [{ name: "Embiid", number: "21" }, { name: "Maxey", number: "0" }, { name: "Oubre Jr.", number: "8" }] },
+  { slug: "cavaliers", name: "Cleveland Cavaliers", nameHe: "קלבלנד קבלרס", category: "nba", league: "Eastern Conference", leagueShort: "NBA East", primaryColor: "#860038", secondaryColor: "#FDBB30", abbrev: "CLE", description: "The Wine and Gold — LeBron James, 2016 Championship.", currentPlayers: [{ name: "Mitchell", number: "45" }, { name: "Garland", number: "10" }, { name: "Mobley", number: "4" }] },
+  // NBA - Western Conference
+  { slug: "lakers", name: "Los Angeles Lakers", nameHe: "לוס אנג׳לס לייקרס", category: "nba", league: "Western Conference", leagueShort: "NBA West", primaryColor: "#552583", secondaryColor: "#FDB927", abbrev: "LAL", description: "17 אליפויות — Kobe, Magic, Shaq, LeBron.", image: lakers, currentPlayers: [{ name: "LeBron", number: "23" }, { name: "A.Davis", number: "3" }, { name: "Reaves", number: "15" }] },
+  { slug: "warriors", name: "Golden State Warriors", nameHe: "גולדן סטייט ווריורס", category: "nba", league: "Western Conference", leagueShort: "NBA West", primaryColor: "#1D428A", secondaryColor: "#FFC72C", abbrev: "GSW", description: "Strength in Numbers — Curry Dynasty.", image: warriors, currentPlayers: [{ name: "Curry", number: "30" }, { name: "Wiggins", number: "22" }, { name: "Green", number: "23" }] },
+  { slug: "mavericks", name: "Dallas Mavericks", nameHe: "דאלאס מבריקס", category: "nba", league: "Western Conference", leagueShort: "NBA West", primaryColor: "#00538C", secondaryColor: "#002B5E", abbrev: "DAL", description: "The Mavs — Nowitzki 2011, Dončić era.", currentPlayers: [{ name: "Dončić", number: "77" }, { name: "Irving", number: "11" }, { name: "P.J.Washington", number: "25" }] },
+  { slug: "suns", name: "Phoenix Suns", nameHe: "פיניקס סאנס", category: "nba", league: "Western Conference", leagueShort: "NBA West", primaryColor: "#1D1160", secondaryColor: "#E56020", abbrev: "PHX", description: "Valley Boys — Nash, Barkley, Kevin Durant era.", currentPlayers: [{ name: "Durant", number: "35" }, { name: "Booker", number: "1" }, { name: "Bradley Beal", number: "3" }] },
+  { slug: "spurs", name: "San Antonio Spurs", nameHe: "סן אנטוניו ספארס", category: "nba", league: "Western Conference", leagueShort: "NBA West", primaryColor: "#C0C0C0", secondaryColor: "#000000", abbrev: "SAS", description: "Silver & Black — Dynasty: 5 אליפויות. Duncan, Parker, Ginobili.", currentPlayers: [{ name: "Wembanyama", number: "1" }, { name: "Johnson", number: "9" }] },
+  { slug: "rockets", name: "Houston Rockets", nameHe: "יוסטון רוקטס", category: "nba", league: "Western Conference", leagueShort: "NBA West", primaryColor: "#CE1141", secondaryColor: "#C4CED4", abbrev: "HOU", description: "Clutch City — Olajuwon x2, Harden era.", currentPlayers: [{ name: "Jalen Green", number: "4" }, { name: "Šengün", number: "28" }] },
+  { slug: "nuggets", name: "Denver Nuggets", nameHe: "דנבר נאגטס", category: "nba", league: "Western Conference", leagueShort: "NBA West", primaryColor: "#0E2240", secondaryColor: "#FEC524", abbrev: "DEN", description: "Mile High City — אלופים 2023. Jokić, Murray.", currentPlayers: [{ name: "Jokić", number: "15" }, { name: "Murray", number: "27" }, { name: "Porter Jr.", number: "1" }] },
+  { slug: "nets", name: "Brooklyn Nets", nameHe: "ברוקלין נטס", category: "nba", league: "Western Conference", leagueShort: "NBA East", primaryColor: "#000000", secondaryColor: "#FFFFFF", abbrev: "BKN", description: "Brooklyn — KD, Kyrie, Harden superteam era.", image: nets, currentPlayers: [{ name: "Ben Simmons", number: "10" }, { name: "Bridges", number: "1" }] },
 ];
 
-export const PRODUCTS: Product[] = [
-  // ── FOOTBALL — Current Season ──────────────────────────────────────────
-  {
-    id: "rm-home-24", title: "ריאל מדריד · בית 24/25", team: "Real Madrid", teamSlug: "real-madrid", teamHe: "ריאל מדריד",
-    category: "football", categoryLabel: "כדורגל", price: 70, originalPrice: 150, image: madrid,
-    players: [{ name: "ויניציוס ג׳וניור", number: "7" }, { name: "מבאפה", number: "9" }, { name: "בלינגהאם", number: "5" }, { name: "מודריץ׳", number: "10" }],
-    badge: "מבצע השקה",
-  },
-  {
-    id: "fcb-home-24", title: "ברצלונה · בית 24/25", team: "FC Barcelona", teamSlug: "barcelona", teamHe: "ברצלונה",
-    category: "football", categoryLabel: "כדורגל", price: 70, originalPrice: 150, image: barca,
-    players: [{ name: "יאמאל", number: "19" }, { name: "לוונה", number: "9" }, { name: "פדרי", number: "8" }, { name: "גאבי", number: "6" }],
-    badge: "מבצע השקה",
-  },
-  {
-    id: "mcfc-home-24", title: "מנצ׳סטר סיטי · בית 24/25", team: "Manchester City FC", teamSlug: "manchester-city", teamHe: "מנצ׳סטר סיטי",
-    category: "football", categoryLabel: "כדורגל", price: 70, originalPrice: 140, image: city,
-    players: [{ name: "הולאנד", number: "9" }, { name: "דה ברויינה", number: "17" }, { name: "פיל פודן", number: "47" }],
-    badge: "מבצע השקה",
-  },
-  {
-    id: "psg-home-24", title: "פריז סן ז׳רמן · בית 24/25", team: "Paris Saint-Germain", teamSlug: "psg", teamHe: "פריז סן ז׳רמן",
-    category: "football", categoryLabel: "כדורגל", price: 70, originalPrice: 150, image: psg,
-    players: [{ name: "דמבלה", number: "10" }, { name: "אשראף", number: "2" }, { name: "לי קאנג-אין", number: "19" }],
-    badge: "מבצע השקה",
-  },
-  {
-    id: "lfc-home-24", title: "ליברפול · בית 24/25", team: "Liverpool FC", teamSlug: "liverpool", teamHe: "ליברפול",
-    category: "football", categoryLabel: "כדורגל", price: 70, originalPrice: 150, image: liverpool,
-    players: [{ name: "סלאח", number: "11" }, { name: "נונז", number: "9" }, { name: "אלן", number: "6" }],
-    badge: "מבצע השקה",
-  },
-  {
-    id: "mufc-home-24", title: "מנצ׳סטר יונייטד · בית 24/25", team: "Manchester United FC", teamSlug: "manchester-united", teamHe: "מנצ׳סטר יונייטד",
-    category: "football", categoryLabel: "כדורגל", price: 70, originalPrice: 150, image: united,
-    players: [{ name: "הוילונד", number: "11" }, { name: "רשפורד", number: "10" }, { name: "מאונט", number: "7" }],
-    badge: "מבצע השקה",
-  },
-  {
-    id: "ars-home-24", title: "ארסנל · בית 24/25", team: "Arsenal FC", teamSlug: "arsenal", teamHe: "ארסנל",
-    category: "football", categoryLabel: "כדורגל", price: 70, originalPrice: 150, image: arsenal,
-    players: [{ name: "סאקה", number: "7" }, { name: "מרטינלי", number: "11" }, { name: "אודגאר", number: "8" }],
-    badge: "מבצע השקה",
-  },
-  {
-    id: "fcb-bay-24", title: "באיירן מינכן · בית 24/25", team: "FC Bayern Munich", teamSlug: "bayern-munich", teamHe: "באיירן מינכן",
-    category: "football", categoryLabel: "כדורגל", price: 70, originalPrice: 150, image: bayern,
-    players: [{ name: "קיין", number: "9" }, { name: "מוסיאלה", number: "42" }, { name: "גורצקה", number: "8" }],
-    badge: "מבצע השקה",
-  },
-  {
-    id: "int-home-24", title: "אינטר מילאן · בית 24/25", team: "Inter Milan", teamSlug: "inter-milan", teamHe: "אינטר מילאן",
-    category: "football", categoryLabel: "כדורגל", price: 70, originalPrice: 150, image: inter,
-    badge: "מבצע השקה",
-  },
+// ── RETRO ERAS ─────────────────────────────────────────────────────────────
 
-  // ── FOOTBALL — Retro Editions ──────────────────────────────────────────
-  {
-    id: "rm-retro-2002", title: "ריאל מדריד · רטרו 2002", team: "Real Madrid", teamSlug: "real-madrid", teamHe: "ריאל מדריד",
-    category: "football", categoryLabel: "כדורגל · רטרו", price: 70, originalPrice: 150, image: madrid,
-    isRetro: true, era: "2002 · עידן זידאן", badge: "רטרו קלאסיק",
-    description: "עונת 2001/02 — ריאל מדריד זוכה ב-Champions League בשאנטיאגו ברנאבאו. הגול של זידאן בגמר נגד לבקוזן — גול שנבחר לטוב בהיסטוריה.",
-    players: [{ name: "זידאן", number: "5" }, { name: "רונאלדו", number: "9" }, { name: "ראול", number: "7" }, { name: "פיגו", number: "10" }],
-  },
-  {
-    id: "fcb-retro-2009", title: "ברצלונה · רטרו 2009", team: "FC Barcelona", teamSlug: "barcelona", teamHe: "ברצלונה",
-    category: "football", categoryLabel: "כדורגל · רטרו", price: 70, originalPrice: 150, image: barca,
-    isRetro: true, era: "2009 · עונת הטרבל", badge: "רטרו קלאסיק",
-    description: "עונת 2008/09 — ברצלונה של פאו גוארדיולה מנצחת בלה-ליגה, גביע המלך ו-Champions League. The Treble.",
-    players: [{ name: "מסי", number: "10" }, { name: "שאבי", number: "6" }, { name: "איניסטה", number: "8" }, { name: "הנרי", number: "14" }],
-  },
-  {
-    id: "mcfc-retro-2012", title: "מנצ׳סטר סיטי · רטרו 2012", team: "Manchester City FC", teamSlug: "manchester-city", teamHe: "מנצ׳סטר סיטי",
-    category: "football", categoryLabel: "כדורגל · רטרו", price: 70, originalPrice: 150, image: city,
-    isRetro: true, era: "2012 · 93:20", badge: "רטרו קלאסיק",
-    description: "עונת 2011/12 — מנצ׳סטר סיטי זוכה בתואר בדקה ה-93:20 עם גול אגוארו. אחד הרגעים הדרמטיים בהיסטוריה של הפרמייר ליג.",
-    players: [{ name: "אגוארו", number: "16" }, { name: "דוד סילבה", number: "21" }, { name: "קומפאני", number: "4" }, { name: "ת׳אוזאהד", number: "14" }],
-  },
-  {
-    id: "psg-retro-2015", title: "פריז סן ז׳רמן · רטרו 2015", team: "Paris Saint-Germain", teamSlug: "psg", teamHe: "פריז סן ז׳רמן",
-    category: "football", categoryLabel: "כדורגל · רטרו", price: 70, originalPrice: 150, image: psg,
-    isRetro: true, era: "2015 · עידן איברהימוביץ׳", badge: "רטרו קלאסיק",
-    description: "עונת 2014/15 — PSG עם זלאטן איברהימוביץ׳ וציוואי. עידן הזהב של הכדורגל הצרפתי עם ארבעת הכותרות הרצופות.",
-    players: [{ name: "איברהימוביץ׳", number: "18" }, { name: "לוקאס מורה", number: "29" }, { name: "ואנה", number: "19" }],
-  },
-  {
-    id: "lfc-retro-2005", title: "ליברפול · רטרו 2005", team: "Liverpool FC", teamSlug: "liverpool", teamHe: "ליברפול",
-    category: "football", categoryLabel: "כדורגל · רטרו", price: 70, originalPrice: 150, image: liverpool,
-    isRetro: true, era: "2005 · ניסים איסטנבול", badge: "רטרו קלאסיק",
-    description: "גמר Champions League 2005 — איסטנבול. ליברפול מפסידה 0:3 ומנצחת 3:3, ואז בפנדלים. הלילה האגדי ביותר בכדורגל.",
-    players: [{ name: "גרארד", number: "8" }, { name: "אלונסו", number: "14" }, { name: "מלו", number: "9" }],
-  },
-  {
-    id: "mufc-retro-1999", title: "מנצ׳סטר יונייטד · רטרו 1999", team: "Manchester United FC", teamSlug: "manchester-united", teamHe: "מנצ׳סטר יונייטד",
-    category: "football", categoryLabel: "כדורגל · רטרו", price: 70, originalPrice: 150, image: united,
-    isRetro: true, era: "1999 · עונת הטרבל", badge: "רטרו קלאסיק",
-    description: "עונת 1998/99 — מנצ׳סטר יונייטד של פרגוסון זוכה בפרמייר ליג, גביע FA ו-Champions League. The Treble.",
-    players: [{ name: "בקהאם", number: "7" }, { name: "גיגס", number: "11" }, { name: "שולס", number: "18" }, { name: "קיין", number: "16" }],
-  },
-  {
-    id: "ars-retro-2004", title: "ארסנל · רטרו 2004", team: "Arsenal FC", teamSlug: "arsenal", teamHe: "ארסנל",
-    category: "football", categoryLabel: "כדורגל · רטרו", price: 70, originalPrice: 150, image: arsenal,
-    isRetro: true, era: "2004 · The Invincibles", badge: "רטרו קלאסיק",
-    description: "עונת 2003/04 — ארסנל The Invincibles של ונגר. 38 משחקים ללא הפסד. התואר הבלתי מנוצח בפרמייר ליג.",
-    players: [{ name: "הנרי", number: "14" }, { name: "ברגקאמפ", number: "10" }, { name: "וייאה", number: "4" }, { name: "פירס", number: "3" }],
-  },
-  {
-    id: "bay-retro-2013", title: "באיירן מינכן · רטרו 2013", team: "FC Bayern Munich", teamSlug: "bayern-munich", teamHe: "באיירן מינכן",
-    category: "football", categoryLabel: "כדורגל · רטרו", price: 70, originalPrice: 150, image: bayern,
-    isRetro: true, era: "2013 · גמר UCL", badge: "רטרו קלאסיק",
-    description: "עונת 2012/13 — באיירן מינכן של יופ היינקס זוכה ב-Champions League בוומבלי מול בורוסיה דורטמונד. The Treble.",
-    players: [{ name: "רובן", number: "10" }, { name: "ריברי", number: "7" }, { name: "לבנדובסקי", number: "9" }, { name: "נוייר", number: "1" }],
-  },
+interface RetroEra {
+  teamSlug: string;
+  id: string;
+  titleHe: string;
+  era: string;
+  eraPeriod: "90s" | "00s" | "10s" | "modern";
+  description: string;
+  players: PlayerVariant[];
+}
 
-  // ── NBA — Current Season ───────────────────────────────────────────────
-  {
-    id: "lal-23", title: "לוס אנג׳לס לייקרס · 23", team: "Los Angeles Lakers", teamSlug: "lakers", teamHe: "לוס אנג׳לס לייקרס",
-    category: "nba", categoryLabel: "גופיות NBA", price: 70, originalPrice: 150, image: lakers,
-    players: [{ name: "LeBron James", number: "23" }, { name: "Anthony Davis", number: "3" }, { name: "Austin Reaves", number: "15" }],
-    badge: "מבצע השקה",
-  },
-  {
-    id: "gsw-30", title: "גולדן סטייט ווריורס · 30", team: "Golden State Warriors", teamSlug: "warriors", teamHe: "גולדן סטייט ווריורס",
-    category: "nba", categoryLabel: "גופיות NBA", price: 70, originalPrice: 150, image: warriors,
-    players: [{ name: "Stephen Curry", number: "30" }, { name: "Klay Thompson", number: "11" }, { name: "Draymond Green", number: "23" }],
-    badge: "מבצע השקה",
-  },
-  {
-    id: "chi-23", title: "שיקגו בולס · 23", team: "Chicago Bulls", teamSlug: "bulls", teamHe: "שיקגו בולס",
-    category: "nba", categoryLabel: "גופיות NBA", price: 70, originalPrice: 150, image: bulls,
-    players: [{ name: "Zach LaVine", number: "8" }, { name: "DeMar DeRozan", number: "11" }, { name: "Nikola Vucevic", number: "9" }],
-    badge: "מבצע השקה",
-  },
-  {
-    id: "bos-0", title: "בוסטון סלטיקס · 0", team: "Boston Celtics", teamSlug: "celtics", teamHe: "בוסטון סלטיקס",
-    category: "nba", categoryLabel: "גופיות NBA", price: 70, originalPrice: 150, image: celtics,
-    players: [{ name: "Jayson Tatum", number: "0" }, { name: "Jaylen Brown", number: "7" }, { name: "Al Horford", number: "42" }],
-    badge: "מבצע השקה",
-  },
-  {
-    id: "bkn-7", title: "ברוקלין נטס · 7", team: "Nets", teamSlug: "nets", teamHe: "ברוקלין נטס",
-    category: "nba", categoryLabel: "גופיות NBA", price: 70, originalPrice: 150, image: nets,
-    badge: "מבצע השקה",
-  },
-
-  // ── NBA — Retro Editions ───────────────────────────────────────────────
-  {
-    id: "lal-retro-96", title: "לייקרס · רטרו 1996", team: "Los Angeles Lakers", teamSlug: "lakers", teamHe: "לוס אנג׳לס לייקרס",
-    category: "nba", categoryLabel: "NBA · רטרו", price: 70, originalPrice: 150, image: lakers,
-    isRetro: true, era: "1996 · עידן קובי", badge: "רטרו קלאסיק",
-    description: "הדינסטי של לוס אנג׳לס — קובי וסאק. 3 אליפויות רצופות (2000-2002). ה-Showtime Lakers בגרסה המודרנית.",
-    players: [{ name: "Kobe Bryant", number: "8" }, { name: "Shaquille O'Neal", number: "34" }, { name: "Magic Johnson", number: "32" }],
-  },
-  {
-    id: "chi-retro-96", title: "בולס · רטרו 1996", team: "Chicago Bulls", teamSlug: "bulls", teamHe: "שיקגו בולס",
-    category: "nba", categoryLabel: "NBA · רטרו", price: 70, originalPrice: 150, image: bulls,
-    isRetro: true, era: "1996 · The Last Dance", badge: "רטרו קלאסיק",
-    description: "עונת 1995/96 — שיקגו בולס של מייקל ג׳ורדן. 72-10 בסדרה הסדירה. The Last Dance — 6 אליפויות NBA.",
-    players: [{ name: "Michael Jordan", number: "23" }, { name: "Scottie Pippen", number: "33" }, { name: "Dennis Rodman", number: "91" }],
-  },
-  {
-    id: "bos-retro-86", title: "סלטיקס · רטרו 1986", team: "Boston Celtics", teamSlug: "celtics", teamHe: "בוסטון סלטיקס",
-    category: "nba", categoryLabel: "NBA · רטרו", price: 70, originalPrice: 150, image: celtics,
-    isRetro: true, era: "1986 · Celtic Pride", badge: "רטרו קלאסיק",
-    description: "עונת 1985/86 — בוסטון סלטיקס של לארי בירד. 67 ניצחונות. הנבחרת שנחשבת לאחת הטובות בכל ההיסטוריה של NBA.",
-    players: [{ name: "Larry Bird", number: "33" }, { name: "Kevin McHale", number: "32" }, { name: "Robert Parish", number: "00" }],
-  },
-  {
-    id: "gsw-retro-2017", title: "ווריורס · רטרו 2017", team: "Golden State Warriors", teamSlug: "warriors", teamHe: "גולדן סטייט ווריורס",
-    category: "nba", categoryLabel: "NBA · רטרו", price: 70, originalPrice: 150, image: warriors,
-    isRetro: true, era: "2017 · Dynasty Edition", badge: "רטרו קלאסיק",
-    description: "עונת 2016/17 — גולדן סטייט ווריורס עם דאראנט. 16-1 בפלייאוף. הדינסטי שהגדיר את ה-NBA של העשור.",
-    players: [{ name: "Stephen Curry", number: "30" }, { name: "Kevin Durant", number: "35" }, { name: "Klay Thompson", number: "11" }],
-  },
+const RETRO_ERAS: RetroEra[] = [
+  // ── Football ──
+  { teamSlug: "real-madrid", id: "rm-retro-2002", titleHe: "ריאל מדריד · רטרו 2002", era: "2002 · עידן זידאן", eraPeriod: "00s", description: "גמר UCL 2002 — הגול של זידאן בשאנטיאגו ברנאבאו. Los Galácticos.", players: [{ name: "זידאן", number: "5" }, { name: "רונאלדו", number: "9" }, { name: "ראול", number: "7" }, { name: "פיגו", number: "10" }] },
+  { teamSlug: "real-madrid", id: "rm-retro-2018", titleHe: "ריאל מדריד · רטרו 2018", era: "2016-2018 · 3-Peat", eraPeriod: "10s", description: "3 גביעי UCL רצופים — CR7, בייל, בנזמה. ההישג הגדול ביותר.", players: [{ name: "רונאלדו", number: "7" }, { name: "בנזמה", number: "9" }, { name: "בייל", number: "11" }, { name: "מודריץ׳", number: "10" }] },
+  { teamSlug: "barcelona", id: "fcb-retro-2009", titleHe: "ברצלונה · רטרו 2009", era: "2009 · Treble Season", eraPeriod: "00s", description: "עונת 2008/09 — הטרבל של גוארדיולה. 6 גביעים, שנה שכולה היסטוריה.", players: [{ name: "מסי", number: "10" }, { name: "שאבי", number: "6" }, { name: "איניסטה", number: "8" }, { name: "הנרי", number: "14" }] },
+  { teamSlug: "barcelona", id: "fcb-retro-2015", titleHe: "ברצלונה · רטרו 2015", era: "2015 · MSN Treble", eraPeriod: "10s", description: "MSN — מסי, סואריס, נייאר. טרבל נוסף, השלישייה האגדית.", players: [{ name: "מסי", number: "10" }, { name: "נייאר", number: "11" }, { name: "סואריס", number: "9" }, { name: "איניסטה", number: "8" }] },
+  { teamSlug: "arsenal", id: "ars-retro-2004", titleHe: "ארסנל · רטרו 2004", era: "2004 · The Invincibles", eraPeriod: "00s", description: "38 משחקים ללא הפסד. The Invincibles של ארסגר ונגר — ההישג הבלתי מנוצח.", players: [{ name: "הנרי", number: "14" }, { name: "ברגקאמפ", number: "10" }, { name: "וייאה", number: "4" }, { name: "פירס", number: "3" }] },
+  { teamSlug: "manchester-united", id: "mufc-retro-1999", titleHe: "מנצ׳סטר יונייטד · רטרו 1999", era: "1999 · The Treble", eraPeriod: "90s", description: "פרמייר ליג, FA Cup ו-UCL באותה עונה. טרבל פרגוסון — אגדה.", players: [{ name: "בקהאם", number: "7" }, { name: "גיגס", number: "11" }, { name: "שולס", number: "18" }, { name: "קיין", number: "16" }] },
+  { teamSlug: "liverpool", id: "lfc-retro-2005", titleHe: "ליברפול · רטרו 2005", era: "2005 · Istanbul Miracle", eraPeriod: "00s", description: "גמר UCL — 0:3 בהפסקה, 3:3 בסיום ו-3:2 בפנדלים. The Miracle of Istanbul.", players: [{ name: "גרארד", number: "8" }, { name: "אלונסו", number: "14" }, { name: "מלו", number: "9" }, { name: "סמי הייא", number: "4" }] },
+  { teamSlug: "chelsea", id: "che-retro-2012", titleHe: "צ׳לסי · רטרו 2012", era: "2012 · UCL Champions", eraPeriod: "10s", description: "UCL 2012 — ניצחון על בייר מינכן בבייארנה. Drogba 88' + הצלה בפנדלים.", players: [{ name: "דרוגבה", number: "11" }, { name: "למפארד", number: "8" }, { name: "טרי", number: "26" }, { name: "מאטה", number: "10" }] },
+  { teamSlug: "ac-milan", id: "acm-retro-1994", titleHe: "אי.סי. מילאן · רטרו 1994", era: "1988-1994 · Grande Milan", eraPeriod: "90s", description: "הדינסטי הגדול — UCL 1989, 1990, 1994. גולה, ון באסטן, מלדיני.", players: [{ name: "גולה", number: "10" }, { name: "ון באסטן", number: "9" }, { name: "מלדיני", number: "3" }, { name: "קוסטה", number: "11" }] },
+  { teamSlug: "inter-milan", id: "int-retro-2010", titleHe: "אינטר מילאן · רטרו 2010", era: "2010 · Mourinho Treble", eraPeriod: "10s", description: "טרבל 2010 עם מורינייו — Serie A, Coppa Italia ו-UCL. La Grande Inter.", players: [{ name: "מיליטו", number: "22" }, { name: "זאנטי", number: "4" }, { name: "אטו", number: "9" }, { name: "סנטי", number: "19" }] },
+  { teamSlug: "napoli", id: "nap-retro-1987", titleHe: "נאפולי · רטרו 1987", era: "1987-1990 · Maradona Era", eraPeriod: "90s", description: "מרדונה בנאפולי — Serie A 1987, 1990, UEFA Cup 1989. הדרום קם לחיים.", players: [{ name: "מרדונה", number: "10" }, { name: "ג׳יורדנו", number: "9" }, { name: "פרארה", number: "6" }] },
+  { teamSlug: "juventus", id: "juv-retro-1996", titleHe: "יובנטוס · רטרו 1996", era: "1996-2003 · Del Piero Era", eraPeriod: "90s", description: "UCL 1996 עם ליפי — Baggio, Del Piero, Zidane. La Vecchia Signora בשיאה.", players: [{ name: "דל פיירו", number: "10" }, { name: "ז׳ידאן", number: "21" }, { name: "ינה", number: "9" }, { name: "קאמוראנזי", number: "8" }] },
+  { teamSlug: "dortmund", id: "bvb-retro-2012", titleHe: "בורוסיה דורטמונד · רטרו 2012", era: "2011-2013 · Klopp Era", eraPeriod: "10s", description: "Bundesliga 2011, 2012 — הקלופ שלפני ליברפול. Signal Iduna Park בלהבות.", players: [{ name: "לבנדובסקי", number: "9" }, { name: "ראוס", number: "11" }, { name: "גוצ׳ה", number: "10" }, { name: "הומלס", number: "15" }] },
+  { teamSlug: "bayern-munich", id: "bay-retro-2013", titleHe: "באיירן מינכן · רטרו 2013", era: "2013 · Wembley Final", eraPeriod: "10s", description: "UCL 2013 — גמר כולו גרמני, וומבלי. רובן, ריברי, מולר.", players: [{ name: "רובן", number: "10" }, { name: "ריברי", number: "7" }, { name: "לבנדובסקי", number: "9" }, { name: "נוייר", number: "1" }] },
+  { teamSlug: "psg", id: "psg-retro-2015", titleHe: "PSG · רטרו 2015", era: "2015 · Ibrahimović Era", eraPeriod: "10s", description: "עידן זלאטן — ארבע Ligue 1 רצופות. Si vous ne l'aimez pas, partez!", players: [{ name: "איברהימוביץ׳", number: "18" }, { name: "לוקאס מורה", number: "29" }, { name: "ואנה", number: "19" }] },
+  { teamSlug: "ajax", id: "ajx-retro-1995", titleHe: "אייאקס · רטרו 1995", era: "1995 · UCL Champions", eraPeriod: "90s", description: "UCL 1995 — Louis van Gaal. The Dream Team — Davids, Seedorf, Kluivert, De Boer.", players: [{ name: "דיוידס", number: "8" }, { name: "קלוייברט", number: "17" }, { name: "סידורף", number: "11" }, { name: "דה בואר", number: "3" }] },
+  // National Teams Retro
+  { teamSlug: "brazil", id: "bra-retro-2002", titleHe: "ברזיל · רטרו 2002", era: "2002 · WC Pentacampeão", eraPeriod: "00s", description: "מונדיאל 2002 — 3R: ריבאלדו, רונאלדינייו, רונאלדו. הטוב ביותר של ברזיל.", players: [{ name: "רונאלדו", number: "9" }, { name: "רונאלדינייו", number: "11" }, { name: "ריבאלדו", number: "10" }, { name: "רוברטו קרלוס", number: "6" }] },
+  { teamSlug: "brazil", id: "bra-retro-1970", titleHe: "ברזיל · רטרו 1970", era: "1970 · Pelé's WC", eraPeriod: "modern", description: "מונדיאל 1970 — פלה, טוסטאו, ז׳יאירזינייו. הנבחרת הטובה ביותר בהיסטוריה.", players: [{ name: "פלה", number: "10" }, { name: "ז׳יאירזינייו", number: "7" }, { name: "טוסטאו", number: "9" }] },
+  { teamSlug: "argentina", id: "arg-retro-1986", titleHe: "ארגנטינה · רטרו 1986", era: "1986 · Maradona WC", eraPeriod: "modern", description: "מונדיאל מקסיקו 1986 — יד האלוהים + הגול של המאה. מרדונה הבלתי ניתן לעצירה.", players: [{ name: "מרדונה", number: "10" }, { name: "ואלדנו", number: "9" }, { name: "ברגסיו", number: "7" }] },
+  { teamSlug: "argentina", id: "arg-retro-2022", titleHe: "ארגנטינה · רטרו 2022", era: "2022 · Messi's WC", eraPeriod: "modern", description: "מונדיאל קטאר 2022 — מסי שם שוויון. הטרי פינאל האגדית מול צרפת.", players: [{ name: "מסי", number: "10" }, { name: "דיבאלה", number: "21" }, { name: "דה-פאול", number: "7" }, { name: "לאוטרו", number: "22" }] },
+  { teamSlug: "france", id: "fra-retro-1998", titleHe: "צרפת · רטרו 1998", era: "1998 · WC Champions", eraPeriod: "90s", description: "מונדיאל 1998 על האדמה הצרפתית — זידאן ×2 בגמר. Allez les Bleus!", players: [{ name: "זידאן", number: "10" }, { name: "הנרי", number: "14" }, { name: "טרזגה", number: "20" }, { name: "בארתז", number: "1" }] },
+  { teamSlug: "boca-juniors", id: "boc-retro-2000", titleHe: "בוקה ג׳וניורס · רטרו 2000", era: "2000 · Copa Libertadores", eraPeriod: "00s", description: "Copa Libertadores 2000 — ריקלמה ובוקה בגרסה הכי אגדית שלהם. La Bombonera.", players: [{ name: "ריקלמה", number: "10" }, { name: "מרטין פלמינו", number: "9" }, { name: "הורגה", number: "7" }] },
+  // NBA Retro
+  { teamSlug: "bulls", id: "chi-retro-96", titleHe: "בולס · רטרו 1996", era: "1996 · The Last Dance", eraPeriod: "90s", description: "72-10 בסדרה הסדירה. The Last Dance — הדוקומנטרי, המיתוס, ג׳ורדן.", players: [{ name: "Jordan", number: "23" }, { name: "Pippen", number: "33" }, { name: "Rodman", number: "91" }, { name: "Kukoc", number: "7" }] },
+  { teamSlug: "bulls", id: "chi-retro-92", titleHe: "בולס · רטרו 1992", era: "1992 · 3-Peat First Run", eraPeriod: "90s", description: "Three-Peat ראשון — 1991, 1992, 1993. Jordan & Pippen Dominant.", players: [{ name: "Jordan", number: "23" }, { name: "Pippen", number: "33" }, { name: "Grant", number: "54" }] },
+  { teamSlug: "lakers", id: "lal-retro-2000", titleHe: "לייקרס · רטרו 2000", era: "2000-2002 · Kobe/Shaq 3-Peat", eraPeriod: "00s", description: "Three-Peat 2000-2002 — Kobe & Shaq. The Purple and Gold Dynasty.", players: [{ name: "Kobe Bryant", number: "8" }, { name: "Shaquille O'Neal", number: "34" }, { name: "Fish", number: "2" }] },
+  { teamSlug: "lakers", id: "lal-retro-87", titleHe: "לייקרס · רטרו 1987", era: "1987 · Showtime Lakers", eraPeriod: "modern", description: "Showtime Lakers — Magic Johnson, Kareem, Worthy. 5 אליפויות בשנות ה-80.", players: [{ name: "Magic Johnson", number: "32" }, { name: "Kareem Abdul-Jabbar", number: "33" }, { name: "James Worthy", number: "42" }] },
+  { teamSlug: "celtics", id: "bos-retro-1986", titleHe: "סלטיקס · רטרו 1986", era: "1986 · Celtic Pride", eraPeriod: "modern", description: "עונת 1985/86 — Larry Bird. 67 ניצחונות. הנבחרת שנחשבת לטובה בהיסטוריה.", players: [{ name: "Larry Bird", number: "33" }, { name: "Kevin McHale", number: "32" }, { name: "Robert Parish", number: "00" }] },
+  { teamSlug: "celtics", id: "bos-retro-2008", titleHe: "סלטיקס · רטרו 2008", era: "2008 · Big Three", eraPeriod: "00s", description: "ה-Big Three — Pierce, Garnett, Allen. 66 ניצחונות ואליפות 2008.", players: [{ name: "Paul Pierce", number: "34" }, { name: "Kevin Garnett", number: "5" }, { name: "Ray Allen", number: "20" }] },
+  { teamSlug: "heat", id: "mia-retro-2013", titleHe: "מיאמי היט · רטרו 2013", era: "2012-2013 · LeBron Era", eraPeriod: "10s", description: "LeBron, Wade, Bosh — 2 אליפויות רצופות. South Beach Dynasty.", players: [{ name: "LeBron James", number: "6" }, { name: "Dwyane Wade", number: "3" }, { name: "Chris Bosh", number: "1" }] },
+  { teamSlug: "warriors", id: "gsw-retro-2017", titleHe: "ווריורס · רטרו 2017", era: "2017 · Dynasty Edition", eraPeriod: "10s", description: "Curry + Durant — 16-1 בפלייאוף. The All-Time Greatest Regular Season Team.", players: [{ name: "Stephen Curry", number: "30" }, { name: "Kevin Durant", number: "35" }, { name: "Klay Thompson", number: "11" }] },
+  { teamSlug: "spurs", id: "sas-retro-2005", titleHe: "ספארס · רטרו 2005", era: "2003-2007 · Big Three", eraPeriod: "00s", description: "Duncan, Parker, Ginobili — The Big Fundamental. 4 אליפויות ב-9 שנים.", players: [{ name: "Tim Duncan", number: "21" }, { name: "Tony Parker", number: "9" }, { name: "Manu Ginobili", number: "20" }] },
+  { teamSlug: "rockets", id: "hou-retro-1994", titleHe: "רוקטס · רטרו 1994", era: "1994-1995 · Back-to-Back", eraPeriod: "90s", description: "Back-to-Back — Hakeem The Dream 1994, 1995. 2 גביעים ב-2 שנים.", players: [{ name: "Hakeem Olajuwon", number: "34" }, { name: "Clyde Drexler", number: "22" }, { name: "Cassell", number: "10" }] },
+  { teamSlug: "mavericks", id: "dal-retro-2011", titleHe: "מבריקס · רטרו 2011", era: "2011 · Nowitzki's Championship", eraPeriod: "10s", description: "Nowitzki's Miracle — ניצחון על LeBron's Heat. Finals MVP בגיל 32.", players: [{ name: "Dirk Nowitzki", number: "41" }, { name: "Jason Terry", number: "31" }, { name: "Jason Kidd", number: "5" }] },
+  { teamSlug: "knicks", id: "nyk-retro-1994", titleHe: "ניקס · רטרו 1994", era: "1994 · Ewing Era", eraPeriod: "90s", description: "Patrick Ewing, MSG בלהבות. Finals 1994 — הפסד בגמר לרוקטס בפנדלים.", players: [{ name: "Patrick Ewing", number: "33" }, { name: "John Starks", number: "3" }, { name: "Charles Oakley", number: "34" }] },
 ];
+
+// ── GENERATE PRODUCTS ──────────────────────────────────────────────────────
+
+function currentProduct(team: TeamInfo): Product {
+  return {
+    id: `${team.slug}-24`,
+    title: `${team.nameHe} · עונה נוכחית`,
+    team: team.name,
+    teamSlug: team.slug,
+    teamHe: team.nameHe,
+    category: team.category,
+    categoryLabel: team.category === "football" ? "כדורגל" : "גופיות NBA",
+    price: 70,
+    originalPrice: 150,
+    image: team.image,
+    players: team.currentPlayers,
+    badge: "מבצע השקה",
+    eraPeriod: "modern",
+  };
+}
+
+function retroProduct(era: RetroEra, team: TeamInfo): Product {
+  return {
+    id: era.id,
+    title: era.titleHe,
+    team: team.name,
+    teamSlug: era.teamSlug,
+    teamHe: team.nameHe,
+    category: team.category,
+    categoryLabel: `${team.category === "football" ? "כדורגל" : "NBA"} · רטרו`,
+    price: 70,
+    originalPrice: 150,
+    image: team.image,
+    players: era.players,
+    era: era.era,
+    description: era.description,
+    isRetro: true,
+    badge: "רטרו קלאסיק",
+    eraPeriod: era.eraPeriod,
+  };
+}
+
+const currentProducts: Product[] = TEAMS.map(currentProduct);
+
+const retroProducts: Product[] = RETRO_ERAS.map((era) => {
+  const team = TEAMS.find((t) => t.slug === era.teamSlug)!;
+  return retroProduct(era, team);
+});
+
+export const PRODUCTS: Product[] = [...currentProducts, ...retroProducts];
+
+// ── UTILS ─────────────────────────────────────────────────────────────────
 
 export const WHATSAPP_NUMBER = "972508100032";
-export const INSTAGRAM_URL =
-  "https://www.instagram.com/legendary_kits7?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
+export const INSTAGRAM_URL = "https://www.instagram.com/legendary_kits7?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
 
 export function buildWhatsAppUrl(text: string) {
   return `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(text)}`;

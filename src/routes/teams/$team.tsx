@@ -67,17 +67,26 @@ function TeamPage() {
       <main>
         {/* Team Hero */}
         <section className="relative overflow-hidden">
-          <div
-            className="absolute inset-0 opacity-20 pointer-events-none"
-            style={{
-              backgroundImage: `url(${teamInfo.image})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              maskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)",
-              WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)",
-            }}
-            aria-hidden
-          />
+          {teamInfo.image && (
+            <div
+              className="absolute inset-0 opacity-20 pointer-events-none"
+              style={{
+                backgroundImage: `url(${teamInfo.image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                maskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)",
+                WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)",
+              }}
+              aria-hidden
+            />
+          )}
+          {!teamInfo.image && (
+            <div
+              className="absolute inset-0 opacity-10 pointer-events-none"
+              style={{ background: `radial-gradient(ellipse at center, ${teamInfo.primaryColor} 0%, transparent 70%)` }}
+              aria-hidden
+            />
+          )}
           <div className="relative max-w-6xl mx-auto px-5 md:px-8 pt-14 pb-16 md:pt-20 md:pb-20">
             <Link
               to="/"
@@ -88,11 +97,20 @@ function TeamPage() {
             </Link>
 
             <div className="flex items-center gap-4 mb-4">
-              <img
-                src={teamInfo.image}
-                alt={teamInfo.name}
-                className="w-16 h-16 md:w-20 md:h-20 rounded-xl object-cover border border-[#D4AF37]/40"
-              />
+              {teamInfo.image ? (
+                <img
+                  src={teamInfo.image}
+                  alt={teamInfo.name}
+                  className="w-16 h-16 md:w-20 md:h-20 rounded-xl object-cover border border-[#D4AF37]/40"
+                />
+              ) : (
+                <div
+                  className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center font-black text-white shadow-lg border border-[#D4AF37]/30 text-xl"
+                  style={{ background: `linear-gradient(135deg, ${teamInfo.primaryColor}, ${teamInfo.secondaryColor})` }}
+                >
+                  {teamInfo.abbrev}
+                </div>
+              )}
               <div>
                 <p className="text-[10px] tracking-[0.4em] uppercase text-[#F3CF5D] mb-1">
                   {teamInfo.league} · {teamInfo.category === "football" ? "Football" : "NBA"}
