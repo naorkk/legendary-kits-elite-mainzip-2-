@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { X, Star, CheckCircle } from "lucide-react";
 import { buildWhatsAppLink, type Product, type PlayerVariant, TEAMS } from "./products";
 import { JerseyMockup } from "./JerseyMockup";
+import { getProductReviews } from "./ReviewsSection";
 
 const SIZES = ["S", "M", "L", "XL", "XXL"];
 const FEATURES = [
@@ -21,6 +22,7 @@ export function ProductModal({ product, onClose, onAddToCart }: Props) {
   const [size, setSize] = useState("M");
   const [player, setPlayer] = useState<PlayerVariant | undefined>(undefined);
   const team = product ? TEAMS.find((t) => t.slug === product.teamSlug) : undefined;
+  const reviews = product ? getProductReviews(product.title, product.isRetro, product.category, product.teamHe) : [];
 
   useEffect(() => {
     setSize("M");
@@ -200,6 +202,44 @@ export function ProductModal({ product, onClose, onAddToCart }: Props) {
               בלחיצה על הכפתור ייפתח צ׳אט בוואטסאפ מול נציג לסגירת המידה,
               הכתובת ופרטי המשלוח בצורה מאובטחת ואישית.
             </p>
+
+            {/* Verified Product Reviews */}
+            <div className="mt-8 border-t border-[#1a1a1a] pt-6 text-right">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">ביקורות מאומתות</span>
+                <div className="flex items-center gap-1.5 text-xs text-[#F3CF5D] font-black">
+                  <span className="dir-ltr">4.9 / 5</span>
+                  <div className="flex gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={11} className="fill-[#F3CF5D] text-[#F3CF5D]" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                {reviews.map((rev) => (
+                  <div key={rev.id} className="bg-black/30 border border-[#141414] rounded-2xl p-4 transition-all hover:border-[#D4AF37]/20">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-xs font-black text-foreground">{rev.name}</span>
+                      <span className="flex items-center gap-1 text-[9px] text-[#4ade80] bg-[#122214] border border-[#1b3d22]/30 px-2 py-0.5 rounded-full">
+                        <CheckCircle size={8} />
+                        רוכש מאומת
+                      </span>
+                    </div>
+                    
+                    <div className="flex gap-0.5 mb-1.5">
+                      {[...Array(rev.rating)].map((_, i) => (
+                        <Star key={i} size={9} className="fill-[#F3CF5D] text-[#F3CF5D]" />
+                      ))}
+                    </div>
+                    
+                    <h4 className="text-xs font-bold text-foreground mb-1 leading-snug">{rev.title}</h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{rev.content}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

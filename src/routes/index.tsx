@@ -12,6 +12,7 @@ import { CartDrawer, type CartItem } from "@/components/lk/CartDrawer";
 import { WhatsAppFloat } from "@/components/lk/WhatsAppFloat";
 import { Footer } from "@/components/lk/Footer";
 import { PRODUCTS, TEAMS, type Product } from "@/components/lk/products";
+import { ReviewsSection } from "@/components/lk/ReviewsSection";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -128,6 +129,8 @@ function HomePage() {
             </div>
           </div>
         </section>
+
+        <ReviewsSection />
 
         {/* CTA strip */}
         <section className="border-y border-border bg-[#0a0a0a]">
